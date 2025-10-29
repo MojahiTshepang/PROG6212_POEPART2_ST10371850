@@ -1,0 +1,28 @@
+@model CMCS.Models.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Academic Manager Dashboard";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Academic Manager Dashboard</h1>
+
+    <p class="mb-4">
+        Welcome to the Academic Manager dashboard. Here you can approve claims and manage academic activities.
+    </p>
+
+    <div class="container mt-5">
+        <div class="row text-center">
+            <div class="col-lg-12 mb-4">
+                <div class="card h-100 shadow-sm rounded-lg">
+                    <div class="card-body">
+                        <i class="fas fa-clipboard-check fa-4x text-primary mb-3"></i>
+                        <h5 class="card-title fw-bold">Verify Claims</h5>
+                        <p class="card-text">There are @Model.PendingClaims claims waiting for your final approval.</p>
+                        <a asp-controller="AcademicManager" asp-action="Approve" class="btn btn-primary rounded-lg">Verify Claims</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

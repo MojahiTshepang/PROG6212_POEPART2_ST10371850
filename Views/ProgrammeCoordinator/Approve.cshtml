@@ -1,0 +1,54 @@
+@model IEnumerable<CMCS.Models.Claim>
+
+@{
+    ViewData["Title"] = "Approve Claims";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Approve Claims</h1>
+
+    <p class="mb-4">
+        The following claims have been submitted and are awaiting your approval.
+    </p>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center" role="alert">
+            There are no claims currently awaiting your approval.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive rounded-lg shadow-sm">
+            <table class="table table-hover mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Claim ID</th>
+                        <th>Lecturer</th>
+                        <th>Date Submitted</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var claim in Model)
+                    {
+                        <tr>
+                            <td>@claim.ClaimID</td>
+                            <td>@(claim.Lecturer?.Name ?? "N/A")</td>
+                            <td>@claim.DateSubmitted.ToString("yyyy-MM-dd")</td>
+                            <td>@claim.TotalAmount.ToString("C")</td>
+                            <td><span class="badge bg-warning text-dark">@claim.Status</span></td>
+                            <td>
+                                <a asp-action="Details" asp-controller="Claim" asp-route-id="@claim.ClaimID" class="btn btn-sm btn-info">Details</a>
+                                <a asp-action="ApproveClaim" asp-route-id="@claim.ClaimID" class="btn btn-sm btn-success">Approve</a>
+                                <a asp-action="RejectClaim" asp-route-id="@claim.ClaimID" class="btn btn-sm btn-danger">Reject</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
